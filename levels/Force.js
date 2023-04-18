@@ -1,15 +1,19 @@
-const {FORCE_INSTANCE_ADDRESS} = require('./utils');
+const {
+    FORCE_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+} = require('./utils');
 
-async function main() {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Force level');
+async function main(levelName) {
+    logStartingLevel(levelName);
 
     if (!FORCE_INSTANCE_ADDRESS) {
-        console.log('Force instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
-
-    console.log('Force instance address', FORCE_INSTANCE_ADDRESS);
+    logInstanceAddress(levelName, FORCE_INSTANCE_ADDRESS);
 
     const factory = await ethers.getContractFactory("Force");
     const contract = factory.attach(FORCE_INSTANCE_ADDRESS);
@@ -18,8 +22,7 @@ async function main() {
     const attackerContract = await attackerFactory.deploy(contract.address, {value: 1});
     await attackerContract.deployed();
 
-    console.log('\x1b[32m%s\x1b[0m', 'Force level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 module.exports = main;

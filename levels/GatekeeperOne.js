@@ -1,15 +1,20 @@
-const {BLOCK_EXPLORER_URL, GATEKEEPER_ONE_INSTANCE_ADDRESS} = require('./utils');
+const {
+    GATEKEEPER_ONE_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+    logTransactionLink
+} = require('./utils');
 
-async function main() {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Gatekeeper One level');
+async function main(levelName) {
+    logStartingLevel(levelName);
 
     if (!GATEKEEPER_ONE_INSTANCE_ADDRESS) {
-        console.log('Gatekeeper One instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
-
-    console.log('Gatekeeper One instance address', GATEKEEPER_ONE_INSTANCE_ADDRESS);
+    logInstanceAddress(levelName, GATEKEEPER_ONE_INSTANCE_ADDRESS);
 
     const factory = await ethers.getContractFactory("GatekeeperOne");
     const contract = factory.attach(GATEKEEPER_ONE_INSTANCE_ADDRESS);
@@ -19,11 +24,10 @@ async function main() {
     await attackerContract.deployed();
 
     const tx = await attackerContract.hack(contract.address, 1, 1000);
-    console.log(`Transaction hash : ${BLOCK_EXPLORER_URL}/${tx.hash}`);
+    logTransactionLink(tx.hash);
     await tx.wait(1);
 
-    console.log('\x1b[32m%s\x1b[0m', 'Gatekeeper One level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 module.exports = main;
