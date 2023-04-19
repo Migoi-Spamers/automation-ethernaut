@@ -1,15 +1,20 @@
-const {BLOCK_EXPLORER_URL, MAGIC_NUMBER_INSTANCE_ADDRESS} = require('./utils');
+const {
+    MAGIC_NUMBER_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+    logTransactionLink
+} = require('./utils');
 
-async function main() {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Magic Number level');
+async function main(levelName) {
+    logStartingLevel(levelName);
 
     if (!MAGIC_NUMBER_INSTANCE_ADDRESS) {
-        console.log('Magic Number instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
-
-    console.log('Magic Number instance address', MAGIC_NUMBER_INSTANCE_ADDRESS);
+    logInstanceAddress(levelName, MAGIC_NUMBER_INSTANCE_ADDRESS);
 
     const factory = await ethers.getContractFactory("MagicNumber");
     const contract = factory.attach(MAGIC_NUMBER_INSTANCE_ADDRESS);
@@ -19,11 +24,10 @@ async function main() {
     await attackerContract.deployed();
 
     const tx = await contract.setSolver(attackerContract.address);
-    console.log(`Transaction hash : ${BLOCK_EXPLORER_URL}/${tx.hash}`);
+    logTransactionLink(tx.hash);
     await tx.wait(1);
 
-    console.log('\x1b[32m%s\x1b[0m', 'Magic Number level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 module.exports = main;

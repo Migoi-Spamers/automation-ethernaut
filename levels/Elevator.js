@@ -1,15 +1,20 @@
-const {BLOCK_EXPLORER_URL, ELEVATOR_INSTANCE_ADDRESS} = require('./utils');
+const {
+    ELEVATOR_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+    logTransactionLink,
+} = require('./utils');
 
-async function main() {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Elevator level');
+async function main(levelName) {
+    logStartingLevel(levelName);
 
     if (!ELEVATOR_INSTANCE_ADDRESS) {
-        console.log('Elevator instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
-
-    console.log('Elevator instance address', ELEVATOR_INSTANCE_ADDRESS);
+    logInstanceAddress(levelName, ELEVATOR_INSTANCE_ADDRESS);
 
     const factory = await ethers.getContractFactory("Elevator");
     const contract = factory.attach(ELEVATOR_INSTANCE_ADDRESS);
@@ -17,13 +22,12 @@ async function main() {
     const attackerFactory = await ethers.getContractFactory("ElevatorAttacker");
     const attackerContract = await attackerFactory.deploy(contract.address);
     await attackerContract.deployed();
-    
+
     const tx = await attackerContract.setTop(15);
-    console.log(`Transaction hash : ${BLOCK_EXPLORER_URL}/${tx.hash}`);
+    logTransactionLink(tx.hash);
     await tx.wait(1);
 
-    console.log('\x1b[32m%s\x1b[0m', 'Elevator level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 module.exports = main;

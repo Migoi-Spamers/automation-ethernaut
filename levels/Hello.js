@@ -1,13 +1,15 @@
-const {BLOCK_EXPLORER_URL, HELLO_INSTANCE_ADDRESS} = require('./utils');
+const {
+    HELLO_INSTANCE_ADDRESS
+} = require('./utils');
 
-async function main() {
+async function main(levelName) {
     console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-	console.log('Hello Ethernaut level');
+    console.log('Hello Ethernaut level');
 
-	if (!HELLO_INSTANCE_ADDRESS) {
-		console.log('Hello instance address not found');
-		return;
-	}
+    if (!HELLO_INSTANCE_ADDRESS) {
+        console.log('Hello instance address not found');
+        return;
+    }
 
     console.log('Hello instance address', HELLO_INSTANCE_ADDRESS);
 
@@ -17,7 +19,7 @@ async function main() {
     const password = await instance.password();
 
     const tx = await instance.connect(attacker).authenticate(password);
-    console.log(`Transaction hash : ${BLOCK_EXPLORER_URL}/${tx.hash}`);
+    logTransactionLink(tx.hash);
 
     await tx.wait();
 

@@ -1,15 +1,20 @@
-const {BLOCK_EXPLORER_URL, RECOVERY_INSTANCE_ADDRESS} = require('./utils');
+const {
+    RECOVERY_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+    logTransactionLink
+} = require('./utils');
 
-async function main() {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Recovery level');
+async function main(levelName) {
+    logStartingLevel(levelName);
 
     if (!RECOVERY_INSTANCE_ADDRESS) {
-        console.log('Recovery instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
-
-    console.log('Recovery instance address', RECOVERY_INSTANCE_ADDRESS);
+    logInstanceAddress(levelName, RECOVERY_INSTANCE_ADDRESS);
 
     const [attacker] = await ethers.getSigners();
     // const factory = await ethers.getContractFactory("SimpleToken");
@@ -23,11 +28,10 @@ async function main() {
     //destroy it
     console.log(`destroying token to ${attacker.address}...`);
     const tx = await tokenContract.destroy(attacker.address);
-    console.log(`Transaction hash : ${BLOCK_EXPLORER_URL}/${tx.hash}`);
+    logTransactionLink(tx.hash);
     await tx.wait(1);
 
-    console.log('\x1b[32m%s\x1b[0m', 'Recovery level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 function predictContractAddress(creatorAddr, txCount) {
