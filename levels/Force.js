@@ -6,7 +6,7 @@ const {
     logInstanceAddress,
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'Force') {
     logStartingLevel(levelName);
 
     if (!FORCE_INSTANCE_ADDRESS) {

@@ -10,7 +10,7 @@ const {
 // you can get any address on chain
 const randomAddress = '0x0000000000000000000000000000000000000001';
 
-async function main(levelName) {
+async function main(levelName = 'NaughtCoin') {
     logStartingLevel(levelName);
 
     if (!NAUGHT_COIN_INSTANCE_ADDRESS) {

@@ -7,7 +7,7 @@ const {
     logTransactionLink,
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'Fallout') {
     logStartingLevel(levelName);
 
     if (!FALLOUT_INSTANCE_ADDRESS) {

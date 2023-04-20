@@ -10,7 +10,7 @@ const {
 // you can get any address on blockchain
 const randomAddress = '0x0000000000000000000000000000000000000001';
 
-async function main(levelName) {
+async function main(levelName = 'Token') {
     logStartingLevel(levelName);
 
     if (!TOKEN_INSTANCE_ADDRESS) {

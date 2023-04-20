@@ -6,7 +6,7 @@ const {
     logInstanceAddress,
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'GatekeeperTwo') {
     logStartingLevel(levelName);
 
     if (!GATEKEEPER_TWO_INSTANCE_ADDRESS) {

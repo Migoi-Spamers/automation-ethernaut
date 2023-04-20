@@ -7,7 +7,7 @@ const {
     logTransactionLink
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'Privacy') {
     logStartingLevel(levelName);
 
     if (!PRIVACY_INSTANCE_ADDRESS) {
