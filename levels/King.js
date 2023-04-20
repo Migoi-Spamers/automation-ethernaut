@@ -7,7 +7,7 @@ const {
     logTransactionLink
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'King') {
     logStartingLevel(levelName);
 
     if (!KING_INSTANCE_ADDRESS) {

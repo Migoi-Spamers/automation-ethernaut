@@ -7,7 +7,7 @@ const {
 	logTransactionLink,
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'Fallback') {
 	logStartingLevel(levelName);
 
 	if (!FALLBACK_INSTANCE_ADDRESS) {

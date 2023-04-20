@@ -8,7 +8,7 @@ const {
 } = require('./utils');
 const web3 = require('web3');
 
-async function main(levelName) {
+async function main(levelName = 'Delegatoin') {
     logStartingLevel(levelName);
 
     if (!DELEGATION_INSTANCE_ADDRESS) {
