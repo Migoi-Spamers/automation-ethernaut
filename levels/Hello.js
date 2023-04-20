@@ -1,30 +1,63 @@
 const {
-    HELLO_INSTANCE_ADDRESS
+    HELLO_INSTANCE_ADDRESS,
+    logStartingLevel,
+    logSuccessfullyLevel,
+    logInstanceAddressIsNull,
+    logInstanceAddress,
+    logTransactionLink
 } = require('./utils');
 
-async function main(levelName) {
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
-    console.log('Hello Ethernaut level');
+async function main(levelName = 'Hello Ethernaut') {
+    logStartingLevel(levelName);
 
     if (!HELLO_INSTANCE_ADDRESS) {
-        console.log('Hello instance address not found');
+        logInstanceAddressIsNull(levelName);
         return;
     }
+    logInstanceAddress(levelName, HELLO_INSTANCE_ADDRESS);
 
-    console.log('Hello instance address', HELLO_INSTANCE_ADDRESS);
-
+    let contract, tx;
     const [attacker] = await ethers.getSigners();
-    const instance = await ethers.getContractAt("Instance", HELLO_INSTANCE_ADDRESS);
 
-    const password = await instance.password();
+    const infoAbi = ["function info() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, infoAbi, attacker);
+    tx = await contract.info();
 
-    const tx = await instance.connect(attacker).authenticate(password);
+    const info1Abi = ["function info1() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, info1Abi, attacker);
+    tx = await contract.info1();
+
+    const info2Abi = ["function info2(string) pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, info2Abi, attacker);
+    tx = await contract.info2("hello");
+
+    const infoNumAbi = ["function infoNum() pure returns (uint)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, infoNumAbi, attacker);
+    tx = await contract.infoNum();
+
+    const info42Abi = ["function info42() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, info42Abi, attacker);
+    tx = await contract.info42();
+
+    const theMethodNameAbi = ["function theMethodName() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, theMethodNameAbi, attacker);
+    tx = await contract.theMethodName();
+
+    const method7123949Abi = ["function method7123949() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, method7123949Abi, attacker);
+    tx = await contract.method7123949();
+
+    const passwordAbi = ["function password() pure returns (string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, passwordAbi, attacker);
+    const password = await contract.password();
+
+    const authenticateAbi = ["function authenticate(string)"];
+    contract = new ethers.Contract(HELLO_INSTANCE_ADDRESS, authenticateAbi, attacker);
+    tx = await contract.authenticate(password);
     logTransactionLink(tx.hash);
+    tx.wait(1);
 
-    await tx.wait();
-
-    console.log('\x1b[32m%s\x1b[0m', 'Hello Ethernaut level. Done !!!');
-    console.log('\x1b[33m%s\x1b[0m', '* * * * * * * * * * * * * * * ');
+    logSuccessfullyLevel(levelName);
 }
 
 module.exports = main;
