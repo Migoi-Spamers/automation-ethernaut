@@ -7,7 +7,7 @@ const {
     logTransactionLink
 } = require('./utils');
 
-async function main(levelName) {
+async function main(levelName = 'Preservation') {
     logStartingLevel(levelName);
 
     if (!PRESERVATION_INSTANCE_ADDRESS) {

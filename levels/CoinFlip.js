@@ -9,7 +9,7 @@ const {
 
 const MAX_SPLIT_COUNT = 10;
 
-async function main(levelName) {
+async function main(levelName = 'CoinFlip') {
     logStartingLevel(levelName);
 
     if (!COIN_FLIP_INSTANCE_ADDRESS) {
