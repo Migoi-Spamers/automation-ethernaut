@@ -31,12 +31,12 @@ FALLBACK_INSTANCE_ADDRESS=<fallback_instance_address>
 ```
 
 #### Resolve levels
-You can resolve a level by command `npx hardhat run <file_name> --network sepolia`.
+<!-- You can resolve a level by command `npx hardhat run <file_name> --network sepolia`.
 Example:
 
 ```
 npx hardhat run levels/Fallback.js --network sepolia
-```
+``` -->
 
 You can run all levels by command
 ```
