@@ -9,6 +9,7 @@ const levelNames = [
     'Force',
     'Vault',
     'King',
+    'Reentrance',
     'Elevator',
     'Privacy',
     'GatekeeperOne',
@@ -16,8 +17,12 @@ const levelNames = [
     'NaughtCoin',
     'MagicNumber',
     'Recovery',
+    'AlienCodex',
+    'Denial',
     'Shop',
     'Dex',
+    'DexTwo',
+    'DoubleEntryPoint',
     'GoodSamaritan',
 ].filter(Boolean);
 
