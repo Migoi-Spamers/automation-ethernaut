@@ -20,7 +20,7 @@ npm install
 - Can you see the `.env.example`.  Yes, this is the default env file.
 - You need to create a `.env` file and copy the content of `.env.example` to it.
 ```
-ALCHEMY_API_KEY=<you_need_to_create_a_project_on_alchemy_and_get_api_key_pass_to_here>
+INFURA_API_KEY=<you_need_to_create_a_project_on_infura_and_get_api_key_pass_to_here>
 PRIVATE_KEY=<the_private_key_of_your_wallet>
 
 ```
