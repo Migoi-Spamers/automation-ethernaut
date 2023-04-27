@@ -46,5 +46,32 @@ npx hardhat run scripts/index.js --network sepolia
 #### Submit levels
 After you see log level is `Done`. You can go to website and submit it.
 
+#### Levels resolved
+- Hello
+- Fallout
+- Fallback
+- CoinFlip
+- Telephone
+- Token
+- Delegation
+- Force
+- Vault
+- King
+- Reentrance
+- Elevator
+- Privacy
+- GatekeeperOne
+- GatekeeperTwo
+- NaughtCoin
+- MagicNumber
+- Recovery
+- AlienCodex
+- Denial
+- Shop
+- Dex
+- DexTwo
+- DoubleEntryPoint
+- GoodSamaritan
+
 ### Upgrade
 - I will learn about openzeppelin library. So It can help me automation create instance addresses.
